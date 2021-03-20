@@ -6,7 +6,7 @@ const keys = require('../maps/keys.json');
 const input = new InputEvent('/dev/input/event0');
 const keyboard = new InputEvent.Keyboard(input);
 
-export class ScannerInterface extends EventEmitter {
+export class NFCScanner extends EventEmitter {
     private sequence: string[] = [];
     private history: History = {
         last: undefined,
@@ -31,7 +31,7 @@ export class ScannerInterface extends EventEmitter {
         });
     }
 
-    process(): void {
+    private process(): void {
         const { count, last } = this.history;
         const uuid = this.sequence.join("");
 
@@ -53,10 +53,9 @@ export class ScannerInterface extends EventEmitter {
         if (count == 10) {
             this.history.last = undefined;
             this.history.count = 0;
-            
-            this.emit("scan", uuid);
-            
             clearTimeout(timeout);
         }
+
+        this.emit("scan", uuid, count >= 10);
     }
 }

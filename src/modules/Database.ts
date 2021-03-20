@@ -1,12 +1,12 @@
 import { Wristband } from '../interfaces/Wristband';
-import { Database } from 'sqlite3';
+import sqlite3 from 'sqlite3';
 import { EventEmitter } from 'events';
 import path from 'path';
 
 const DATABASE_PATH = path.join(__dirname, "../", "database.sqlite3");
 
-export class Storage extends EventEmitter {
-    private raw?: Database;
+export class Database extends EventEmitter {
+    private raw?: sqlite3.Database;
 
     constructor() {
         super();
@@ -63,7 +63,7 @@ export class Storage extends EventEmitter {
 
     connect(): Promise<void> {
         return new Promise((resolve, reject) => {
-            this.raw = new Database(DATABASE_PATH, err => {
+            this.raw = new sqlite3.Database(DATABASE_PATH, err => {
                 if (!err) {
                     this.initialize().then(() => {
                         this.emit('ready');

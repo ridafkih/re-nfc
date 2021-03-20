@@ -1,12 +1,37 @@
-import { Storage } from './modules/Storage';
+import { Wristband } from './interfaces/Wristband';
+import { Database } from './modules/Database';
+import { NFCScanner } from './modules/NFCScanner';
+import { WebSocket } from './modules/WebSocket';
 
-const storage = new Storage();
+const database = new Database();
+const websocket = new WebSocket();
+
+database.on('ready', handleDatabase);
+
+function handleDatabase() {
+    websocket.startServer();
+    websocket.on('ready', handleWebSocket);
+    
+    console.log("database >> started");
+}
+
+function handleWebSocket() {
+    const scanner = new NFCScanner();
+
+    scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
+        if (isOverThreshold) await database.rewrite(serialNumber);
+        const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
+        websocket.io.emit('scan', shiftSerialNumber(uuid, rewrites));
+    })
+
+    console.log("io & express server >> online");
+}
 
 function shiftSerialNumber(
     serialNumber: string,
-    passes: number = 1
+    rewrites: number = 1
 ): string {
-    if (passes <= 0 || !serialNumber) 
+    if (rewrites <= 0 || !serialNumber) 
         return serialNumber;
 
     const body = serialNumber.substr(0, serialNumber.length - 2);
@@ -15,7 +40,7 @@ function shiftSerialNumber(
     const nybbles: string[] = [...body];
     
     const rotatedHead: string = nybbles.map(nybble => {
-        const nudged = (parseInt(nybble, 16) + passes) % 16;
+        const nudged = (parseInt(nybble, 16) + rewrites) % 16;
         return nudged.toString(16);
     }).join("");
 
