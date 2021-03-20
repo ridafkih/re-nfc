@@ -1,4 +1,3 @@
-
 import { Wristband } from '../interfaces/Wristband';
 import { Database } from 'sqlite3';
 import { EventEmitter } from 'events';
