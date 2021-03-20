@@ -1,6 +1,5 @@
 
 import { Wristband } from '../interfaces/Wristband';
-
 import { Database } from 'sqlite3';
 import { EventEmitter } from 'events';
 import path from 'path';
@@ -14,38 +13,38 @@ export class Storage extends EventEmitter {
         super();
     }
 
-    async rewrite(serialNumber: string, reverse?: boolean): Promise<void> {
-        await this.getWristband(serialNumber);
+    async rewrite(uuid: string, reverse?: boolean): Promise<void> {
+        await this.getWristband(uuid);
 
         return new Promise(resolve => {
             this.raw?.all(`
                 UPDATE serials
                 SET rewrites = rewrites + ?
                 WHERE uuid = ?
-            `, [reverse ? -1 : 1, serialNumber], () => resolve());
+            `, [reverse ? -1 : 1, uuid], () => resolve());
         })
     }
 
-    async getWristband(serialNumber: string): Promise<Wristband> {
-        const data = await this.serialFromDatabase(serialNumber);
+    async getWristband(uuid: string): Promise<Wristband> {
+        const data = await this.serialFromDatabase(uuid);
         if (!!data) return data;
 
         return new Promise(resolve => {
             this.raw?.all(`
                 INSERT INTO serials
                 (uuid) VALUES (?)
-            `, [serialNumber], () => {
-                resolve(this.serialFromDatabase(serialNumber));
+            `, [uuid], () => {
+                resolve(this.serialFromDatabase(uuid));
             })
         })
     }
 
-    serialFromDatabase(serialNumber: string): Promise<Wristband> {
+    serialFromDatabase(uuid: string): Promise<Wristband> {
         return new Promise<Wristband>((resolve, reject) => {
             this.raw?.all(`
                 SELECT * FROM serials
                 WHERE uuid = ?
-            `, [serialNumber], (_, [res]) => {
+            `, [uuid], (_, [res]) => {
                 resolve(res);
             })
         })

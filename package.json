@@ -11,10 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^14.14.35",
-    "sqlite3": "^5.0.2"
+    "input-event": "^1.2.6",
+    "sqlite3": "^5.0.2",
+    "ws": "^7.4.4"
   },
   "devDependencies": {
+    "@types/node": "^14.14.35",
+    "@types/ws": "^7.4.0",
     "@types/sqlite3": "^3.1.7"
   }
 }
