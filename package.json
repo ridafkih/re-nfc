@@ -1,0 +1,14 @@
+{
+  "name": "re_nfc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e ts --exec \"npm run-script test\"",
+    "test": "ts-node src/index.ts",
+    "build": "tsc -p ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
