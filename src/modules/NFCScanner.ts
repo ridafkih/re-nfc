@@ -3,10 +3,11 @@ import InputEvent from 'input-event';
 import { EventEmitter } from 'events';
 
 const keys = require('../maps/keys.json');
-const input = new InputEvent('/dev/input/event0');
-const keyboard = new InputEvent.Keyboard(input);
 
 export class NFCScanner extends EventEmitter {
+    private input: any = new InputEvent('/dev/input/event0');
+    private keyboard: any = new InputEvent.Keyboard(this.input);
+
     private sequence: string[] = [];
     private history: History = {
         last: undefined,
@@ -16,7 +17,7 @@ export class NFCScanner extends EventEmitter {
     constructor() {
         super();
 
-        keyboard.on('keypress', ({ code }: any) => {
+        this.keyboard.on('keypress', ({ code }: any) => {
             const key: string = keys[code].substr(4);
 
             if (key == "SLASH") 
