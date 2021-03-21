@@ -2,8 +2,7 @@ import History from '../interfaces/History';
 import InputEvent from 'input-event';
 import { EventEmitter } from 'events';
 
-const keys = require('../maps/keys.json');
-
+const keys = require('../../keys.json');
 export class NFCScanner extends EventEmitter {
     private input: any = new InputEvent('/dev/input/event0');
     private keyboard: any = new InputEvent.Keyboard(this.input);

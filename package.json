@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e ts --exec \"npm run-script test\"",
-    "test": "ts-node src/index.ts",
-    "build": "tsc -p ."
+    "test": "npm run-script build && npm run",
+    "build": "tsc -p .",
+    "run": "node build/index.js"
   },
   "author": "",
   "license": "ISC",

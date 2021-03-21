@@ -8,6 +8,8 @@ const websocket = new WebSocket();
 
 database.on('ready', handleDatabase);
 
+database.connect().then(console.log).catch(console.error);
+
 function handleDatabase() {
     websocket.startServer();
     websocket.on('ready', handleWebSocket);
