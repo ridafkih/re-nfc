@@ -11,8 +11,7 @@ database.on('ready', handleDatabase);
 function handleDatabase() {
     websocket.startServer();
     websocket.on('ready', handleWebSocket);
-    
-    console.log("database >> started");
+    console.info("SQLite3 Database Hooked");
 }
 
 function handleWebSocket() {
@@ -21,10 +20,14 @@ function handleWebSocket() {
     scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
         if (isOverThreshold) await database.rewrite(serialNumber);
         const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
-        websocket.io.emit('scan', shiftSerialNumber(uuid, rewrites));
+        
+        const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);
+        websocket.io.emit('scan', newSerialNumber);
+
+        console.table({ rewrites, serialNumber, newSerialNumber });
     })
 
-    console.log("io & express server >> online");
+    console.info("IO/Express Server Started");
 }
 
 function shiftSerialNumber(
