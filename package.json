@@ -7,7 +7,7 @@
   "scripts": {
     "install": "npm run build && sudo node scripts/service.js && systemctl start nfc",
     "build": "tsc -p .",
-    "run": "node build/index.js --verbose=true"
+    "run": "sudo node build/index.js --verbose=true"
   },
   "author": "",
   "license": "ISC",
