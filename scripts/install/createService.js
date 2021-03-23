@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=${__dirname}
-ExecStart=npm start
+ExecStart=npm test
 Restart=on-failure
 Environment=PORT=80
 
