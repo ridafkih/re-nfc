@@ -10,7 +10,7 @@ export class WebSocket extends EventEmitter {
     server: http.Server = createServer(this.app);
     io: Server = new Server(this.server, {
         pingInterval: 2500,
-        pingTimeout: 7500 
+        pingTimeout: 7500
     });
 
     constructor() {

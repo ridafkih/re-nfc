@@ -27,10 +27,13 @@ const createWindow = () => {
     if (socket) {
       if (socket.connected) handleConnect();
     } else {
-      socket = io("http://raspberrypi.localdomain/");
+      socket = io("http://raspberrypi.localdomain/", {
+        reconnectionAttempts: 60
+      });
+
       socket.on('connect', handleConnect);
       socket.on('disconnect', handleDisconnect);
-      socket.on('reconnect_error', handleFailedReconnect);
+      socket.on('reconnect_failed', handleFailedReconnect);
     }
   })
   
