@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=${process.cwd()}
-ExecStart=node build/index.js
+ExecStart=npm run-script run
 Restart=on-failure
 Environment=PORT=80
 
