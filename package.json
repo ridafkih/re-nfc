@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pi-install": "",
     "start": "nodemon -e ts --exec \"npm run-script test\"",
     "test": "npm run-script build && npm run",
     "build": "tsc -p .",
