@@ -6,6 +6,7 @@
   
   "scripts": {
     "install": "npm run build && sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
+    "uninstall": "sudo systemctl disable --now nfc.service && sudo node scripts/remove.js",
     "build": "tsc -p .",
     "run": "sudo node build/index.js --verbose=true"
   },
