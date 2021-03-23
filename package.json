@@ -8,7 +8,7 @@
     "start": "nodemon -e ts --exec \"npm run-script test\"",
     "test": "npm run-script build && npm run",
     "build": "tsc -p .",
-    "run": "node build/index.js"
+    "run": "node build/index.js --verbose=true"
   },
   "author": "",
   "license": "ISC",
