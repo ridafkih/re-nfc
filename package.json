@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pi-install": "node scripts/install/createService.js",
+    "pi-install": "node createService.js",
     "start": "nodemon -e ts --exec \"npm run-script test\"",
     "test": "npm run-script build && npm run",
     "build": "tsc -p .",

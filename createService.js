@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=${__dirname}
-ExecStart=node ../../build/index.js
+ExecStart=node build/index.js
 Restart=on-failure
 Environment=PORT=80
 
