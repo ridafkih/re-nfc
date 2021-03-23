@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server-install": "node scripts/service.js",
-    "start": "nodemon -e ts --exec \"npm run-script test\"",
-    "test": "npm run-script build && npm run",
     "build": "tsc -p .",
+    "install": "node scripts/service.js",
     "run": "node build/index.js --verbose=true"
   },
   "author": "",
