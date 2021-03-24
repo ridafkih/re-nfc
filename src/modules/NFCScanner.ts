@@ -10,24 +10,15 @@ export class NFCScanner extends EventEmitter {
     public keyboard: any = this.getKeyboardInstance(this.input);
     
     private sequence: string[] = [];
-    private history: History = {
-        last: undefined,
-        count: 0
-    }
 
     constructor() {
         super();
 
-        if (this.keyboard)
+        if (this.keyboard) 
             this.registerKeyboardListener();
 
-        usbDetect.on('add', () => {
-            this.attemptKeyboardRegistration();
-        });
-
-        usbDetect.on('remove', () => {
-            this.attemptKeyboardRegistration();
-        });
+        usbDetect.on('add', this.attemptKeyboardRegistration);
+        usbDetect.on('remove', this.attemptKeyboardRegistration);
     }
 
     public attemptKeyboardRegistration() {
@@ -72,30 +63,7 @@ export class NFCScanner extends EventEmitter {
     }
 
     private process(): void {
-        const { count, last } = this.history;
         const uuid = this.sequence.join("");
-
-        const timeout = setTimeout(() => {
-            if (last == uuid)
-                this.history.count--;
-            
-            if (!count)
-                this.history.last = undefined;
-        }, 10000);
-
-        if (last == uuid)
-            this.history.count++;
-        else {
-            this.history.last = uuid;
-            this.history.count = 1;
-        }
-
-        if (this.history.count == 5) {
-            this.history.last = undefined;
-            this.history.count = 0;
-            clearTimeout(timeout);
-        }
-
-        this.emit("scan", uuid, count >= 5);
+        this.emit("scan", uuid);
     }
 }

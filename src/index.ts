@@ -20,23 +20,18 @@ function handleWebSocket() {
     const scanner = new NFCScanner();
     
     websocket.io.on('connection', socket => {
-        console.log("connection made");
-
         socket.emit('valid-input', !!scanner.keyboard);
     })
 
     scanner.on('keyboard-registered', () => {
-        console.log('from scanner: keyboard registered');
         websocket.io.emit('keyboard-registered');
     });
 
     scanner.on('keyboard-registration-failed', () => {
-        console.log('from scanner: keyboard registration failed');
         websocket.io.emit('keyboard-registration-failed');
     });
 
-    scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
-        if (isOverThreshold) await database.rewrite(serialNumber);
+    scanner.on('scan', async (serialNumber: string) => {
         const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
         
         const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);

@@ -62,7 +62,7 @@ app.on('ready', () => {
   
   socket.on('scan', handleScan);
   socket.on('keyboard-registered', handleConnect);
-  socket.on('keyboard-registration-failed', () => handleInputType());
+  socket.on('keyboard-registration-failed', handleInputType);
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
