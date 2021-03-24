@@ -21,7 +21,7 @@ function handleWebSocket() {
     
     websocket.io.on('connection', socket => {
         console.log("connection made");
-        socket.emit('valid-input', scanner.validInput);
+        socket.emit('valid-input', !!scanner.keyboard);
     })
 
     scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
