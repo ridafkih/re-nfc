@@ -11,7 +11,7 @@ const { ipcRenderer } = window.require("electron");
 
 function App() {
   const [message, setMessage] = useState("Connecting...");
-  const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while reconnection attempts are made.");
+  const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while connection attempts are made.");
   const [status, setStatus] = useState("info");
 
   useEffect(() => {

@@ -9,6 +9,8 @@ let socket = io("http://octopi:5001/", {
   autoConnect: false
 });
 
+let lastStatus;
+
 app.on('ready', () => {
   const window = new BrowserWindow({
     height: 420,
@@ -24,9 +26,15 @@ app.on('ready', () => {
     alwaysOnTop: true
   });
 
-  window.webContents.on('did-finish-load', () => {
+  window.webContents.once('did-finish-load', () => {
+    console.log('load complete');
+
     window.show();
     socket.open();
+  })
+
+  window.webContents.on('did-finish-load', () => {
+    if (lastStatus) lastStatus();
   })
   
   ipcMain.on('close', () => app.exit(0));
@@ -35,6 +43,7 @@ app.on('ready', () => {
     socket.open();
   })
   
+  // window.loadFile('./build/index.html');
   window.loadURL("http://localhost:3000/");
 
   socket.io.on('ping', console.log('pong'));
@@ -43,7 +52,10 @@ app.on('ready', () => {
 
   socket.on('connect', handleConnect);
   socket.on('reconnect', handleConnect);
-  socket.on('disconnect', handleDisconnect);
+  socket.on('disconnect', e => {
+    handleDisconnect();
+    console.log(e);
+  });
   
   socket.on('scan', handleScan);
   socket.on('valid-input', handleInputType);
@@ -53,7 +65,10 @@ app.on('ready', () => {
   }
 
   function handleInputType(validInput) {
-    console.log(`input type >> ${validInput}`)
+    console.log(`input type >> ${validInput}`);
+
+    lastStatus = handleInputType;
+
     if (validInput) return;
     window.webContents.send(
       "change-status",
@@ -66,6 +81,8 @@ app.on('ready', () => {
   function handleConnect() {
     console.log('connection');
 
+    lastStatus = handleConnect;
+
     window.webContents.send(
       "change-status",
       "check",
@@ -76,6 +93,8 @@ app.on('ready', () => {
 
   function handleAttemptingConnection() {
     console.log('manual reconnect');
+
+    lastStatus = handleAttemptingConnection;
 
     window.webContents.send(
       "change-status",
@@ -88,6 +107,8 @@ app.on('ready', () => {
   function handleDisconnect() {
     console.log('disconnection');
 
+    lastStatus = handleDisconnect;
+
     window.webContents.send(
       "change-status",
       "info",
@@ -98,6 +119,8 @@ app.on('ready', () => {
   
   function handleFailedReconnect() {
     console.log('failed reconnect');
+
+    lastStatus = handleFailedReconnect;
 
     window.webContents.send(
       "change-status",
