@@ -14,13 +14,33 @@ function App() {
   const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while connection attempts are made.");
   const [status, setStatus] = useState("info");
 
+  const [checkingReceiver, setCheckingReceiver] = useState(false);
+
   useEffect(() => {
-    ipcRenderer.on("change-status", (_, newStatus, newMessage, newDescription) => {
+    ipcRenderer.on('change-status', (_, newStatus, newMessage, newDescription) => {
       setStatus(newStatus);
       setMessage(newMessage);
       setDescription(newDescription);
     })
+
+    ipcRenderer.on('restore-check-receiver-button', () => {
+      setCheckingReceiver(false);
+    })
   }, [])
+  
+
+  function checkReceiver() {
+    setCheckingReceiver(true);
+    ipcRenderer.send("check-receiver");
+  }
+
+  function reconnectSocket() {
+    ipcRenderer.send("attempt-reconnect");
+  }
+
+  function abort() {
+    ipcRenderer.send("close");
+  }
 
   return (
     <div className={"App " + status}>
@@ -53,24 +73,12 @@ function App() {
           {status === "check" &&
             <button className="App-button App-button-highlight">Rewrite Wristband</button>
           }
-          {status === "warning" &&
+          {status === "warning" && !checkingReceiver &&
             <button className="App-button App-button-highlight" onClick={checkReceiver}>Check Receiver</button>
           }
           </div>
     </div>
   );
-}
-
-function checkReceiver() {
-  ipcRenderer.send("check-receiver");
-}
-
-function reconnectSocket() {
-  ipcRenderer.send("attempt-reconnect");
-}
-
-function abort() {
-  ipcRenderer.send("close");
 }
 
 export default App;

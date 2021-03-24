@@ -32,6 +32,11 @@ function handleWebSocket() {
         websocket.io.emit('keyboard-registered');
     });
 
+    scanner.on('keyboard-registration-failed', () => {
+        console.log('from scanner: keyboard registration failed');
+        websocket.io.emit('keyboard-registration-failed');
+    });
+
     scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
         if (isOverThreshold) await database.rewrite(serialNumber);
         const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
