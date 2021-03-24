@@ -50,13 +50,9 @@ app.on('ready', () => {
   socket.io.on('reconnect_attempt', () => console.log('reco attempt'));
   socket.io.on('reconnect_failed', handleFailedReconnect);
 
-  socket.on('connect_error', console.log);
   socket.on('connect', handleConnect);
   socket.on('reconnect', handleConnect);
-  socket.on('disconnect', e => {
-    handleDisconnect();
-    console.log(e);
-  });
+  socket.on('disconnect', handleDisconnect);
   
   socket.on('scan', handleScan);
   socket.on('valid-input', handleInputType);
