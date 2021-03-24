@@ -21,12 +21,14 @@ function App() {
       setStatus(newStatus);
       setMessage(newMessage);
       setDescription(newDescription);
+
+      setCheckingReceiver(false);
     })
 
     ipcRenderer.on('restore-check-receiver-button', () => {
       setCheckingReceiver(false);
     })
-  }, [])
+  }, []);
   
 
   function checkReceiver() {
@@ -73,8 +75,8 @@ function App() {
           {status === "check" &&
             <button className="App-button App-button-highlight">Rewrite Wristband</button>
           }
-          {status === "warning" && !checkingReceiver &&
-            <button className="App-button App-button-highlight" onClick={checkReceiver}>Check Receiver</button>
+          {status === "warning" &&
+            <button className="App-button App-button-highlight" disabled={checkingReceiver} onClick={checkReceiver}>Check Receiver</button>
           }
           </div>
     </div>

@@ -1,7 +1,9 @@
 import History from '../interfaces/History';
-import InputEvent from 'input-event';
 import { EventEmitter } from 'events';
+import InputEvent from 'input-event';
+import usbDetect from 'usb-detection';
 
+usbDetect.startMonitoring();
 const keys = require('../../keys.json');
 export class NFCScanner extends EventEmitter {
     private input: any = this.getInputDevice();
@@ -17,7 +19,10 @@ export class NFCScanner extends EventEmitter {
         super();
 
         if (this.keyboard)
-            this.registerKeyboardListener(); 
+            this.registerKeyboardListener();
+
+        usbDetect.on('add', console.log);
+        usbDetect.on('remove', console.log);
     }
 
     public attemptKeyboardRegistration() {

@@ -158,6 +158,12 @@
   font-weight: 500;
 }
 
+.App-button:disabled, 
+.App-button:active {
+  color: #d8d8d8;
+  background: #F7F7F7;
+}
+
 .App-button-highlight {
   color: white;
   background: var(--bulb-color);
@@ -166,5 +172,8 @@
 
 .App-button:hover {
   cursor: pointer;
+}
+
+.App-button:hover:not(:active) {
   filter: brightness(0.95);
 }
