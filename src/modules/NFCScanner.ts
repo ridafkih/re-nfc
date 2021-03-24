@@ -6,6 +6,7 @@ import usbDetect from 'usb-detection';
 usbDetect.startMonitoring();
 const keys = require('../../keys.json');
 export class NFCScanner extends EventEmitter {
+    private address: number = -1;
     private input: any = this.getInputDevice();
     public keyboard: any = this.getKeyboardInstance(this.input);
     
@@ -23,6 +24,7 @@ export class NFCScanner extends EventEmitter {
 
         usbDetect.on('add', console.log);
         usbDetect.on('remove', console.log);
+        usbDetect.find().then(console.log);
     }
 
     public attemptKeyboardRegistration() {
