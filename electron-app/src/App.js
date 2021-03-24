@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     ipcRenderer.on("change-status", (_, newStatus, newMessage, newDescription) => {
-      setStatus(newStatus)
+      setStatus(newStatus);
       setMessage(newMessage);
       setDescription(newDescription);
     })
