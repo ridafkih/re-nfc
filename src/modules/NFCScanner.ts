@@ -56,6 +56,6 @@ export class NFCScanner extends EventEmitter {
             clearTimeout(timeout);
         }
 
-        this.emit("scan", uuid, count >= 10);
+        this.emit("scan", uuid, count >= 5);
     }
 }
