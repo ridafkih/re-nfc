@@ -50,6 +50,11 @@
   --gradient-head-color: #00DC7260;
 }
 
+.App.check.rewrite-true {
+  --bulb-color: #FC2BFC;
+  --gradient-head-color: #FC2BFC60;
+}
+
 .App-notification-container {
   position: relative;
   width: 80px;

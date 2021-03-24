@@ -14,6 +14,8 @@ function App() {
   const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while connection attempts are made.");
   const [status, setStatus] = useState("info");
 
+  const [rewriteMode, setRewriteMode] = useState(false);
+
   useEffect(() => {
     ipcRenderer.on('change-status', (_, newStatus, newMessage, newDescription) => {
       setStatus(newStatus);
@@ -23,15 +25,19 @@ function App() {
   }, []);
 
   function reconnectSocket() {
-    ipcRenderer.send("attempt-reconnect");
+    ipcRenderer.send('attempt-reconnect');
   }
 
   function abort() {
-    ipcRenderer.send("close");
+    ipcRenderer.send('close');
+  }
+
+  function toggleRewriteMode() {
+    setRewriteMode(!rewriteMode);
   }
 
   return (
-    <div className={"App " + status}>
+    <div className={`App ${status} rewrite-${rewriteMode}`}>
       <div className="App-root">
         <div className="App-notification-container">
           {status === "danger" &&
@@ -40,7 +46,7 @@ function App() {
           {status === "warning" &&
             <img className="App-notification-icon" src={warningIcon} alt="" srcSet=""/>
           }
-          {status === "info" &&
+          {(status === "info" || status === "rewrite") &&
             <img className="App-notification-icon" src={infoIcon} alt="" srcSet=""/>
           }
           {status === "check" &&
@@ -50,8 +56,12 @@ function App() {
           <div className="App-notification"></div>
           <div className="App-bulb App-bulb-l"></div>
         </div>
-        <div className="App-notification-message">{message}</div>
-        <div className="App-notification-description">{description}</div>
+        <div className="App-notification-message">
+          {rewriteMode && status === "check" ? "Rewrite Mode" : message}
+        </div>
+        <div className="App-notification-description">
+          {rewriteMode && status === "check" ? "Rewrite mode is active, scan a near-field communication device to rewrite the serial number." : description}
+        </div>
       </div>
       <div className="App-buttons">
           <button className="App-button" onClick={abort}>Close</button>
@@ -59,7 +69,9 @@ function App() {
             <button className="App-button App-button-highlight" onClick={reconnectSocket}>Attempt Reconnect</button>
           }
           {status === "check" &&
-            <button className="App-button App-button-highlight">Rewrite Wristband</button>
+            <button className="App-button App-button-highlight" onClick={toggleRewriteMode}>
+              {rewriteMode ? "Exit Rewrite Mode" : "Enter Rewrite Mode"}
+            </button>
           }
           </div>
     </div>
