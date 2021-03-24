@@ -62,15 +62,11 @@ app.on('ready', () => {
   
   socket.on('scan', handleScan);
   socket.on('keyboard-registered', handleConnect);
-  socket.on('keyboard-registration-failed', handleFailedKeyboardRegistration);
+  socket.on('keyboard-registration-failed', handleInputType);
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
     keyboard.sendKeys(`;${serialNumber}?`);
-  }
-
-  function handleFailedKeyboardRegistration() {
-    window.webContents.send("restore-check-receiver-button");
   }
 
   function handleInputType(validInput) {

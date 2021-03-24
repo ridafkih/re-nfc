@@ -14,27 +14,13 @@ function App() {
   const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while connection attempts are made.");
   const [status, setStatus] = useState("info");
 
-  const [checkingReceiver, setCheckingReceiver] = useState(false);
-
   useEffect(() => {
     ipcRenderer.on('change-status', (_, newStatus, newMessage, newDescription) => {
       setStatus(newStatus);
       setMessage(newMessage);
       setDescription(newDescription);
-
-      setCheckingReceiver(false);
-    })
-
-    ipcRenderer.on('restore-check-receiver-button', () => {
-      setCheckingReceiver(false);
     })
   }, []);
-  
-
-  function checkReceiver() {
-    setCheckingReceiver(true);
-    ipcRenderer.send("check-receiver");
-  }
 
   function reconnectSocket() {
     ipcRenderer.send("attempt-reconnect");
@@ -74,9 +60,6 @@ function App() {
           }
           {status === "check" &&
             <button className="App-button App-button-highlight">Rewrite Wristband</button>
-          }
-          {status === "warning" &&
-            <button className="App-button App-button-highlight" disabled={checkingReceiver} onClick={checkReceiver}>Check Receiver</button>
           }
           </div>
     </div>
