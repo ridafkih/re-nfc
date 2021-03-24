@@ -21,6 +21,13 @@ function App() {
       setStatus(newStatus);
       setMessage(newMessage);
       setDescription(newDescription);
+
+      if (newStatus !== "check")
+        setRewriteMode(false);
+    })
+
+    ipcRenderer.on('get-scan-action', (_, serialNumber) => {
+      ipcRenderer.send('scan-action', rewriteMode);
     })
   }, []);
 
@@ -57,10 +64,10 @@ function App() {
           <div className="App-bulb App-bulb-l"></div>
         </div>
         <div className="App-notification-message">
-          {rewriteMode && status === "check" ? "Rewrite Mode" : message}
+          {rewriteMode ? "Rewrite Mode" : message}
         </div>
         <div className="App-notification-description">
-          {rewriteMode && status === "check" ? "Rewrite mode is active, scan a near-field communication device to rewrite the serial number." : description}
+          {rewriteMode ? "Rewrite mode is active, scan a near-field communication device to rewrite the serial number." : description}
         </div>
       </div>
       <div className="App-buttons">

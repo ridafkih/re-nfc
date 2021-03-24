@@ -61,12 +61,17 @@ app.on('ready', () => {
   socket.on('disconnect', handleDisconnect);
   
   socket.on('scan', handleScan);
+  socket.on('scan-action', handleScanAction);
   socket.on('keyboard-registered', handleConnect);
   socket.on('keyboard-registration-failed', handleInputType);
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
-    keyboard.sendKeys(`;${serialNumber}?`);
+    window.webContents.send('get-scan-action', serialNumber);
+  }
+
+  function handleScanAction(rewrite) {
+    console.log('scan action: ' + rewrite);
   }
 
   function handleInputType(validInput) {
