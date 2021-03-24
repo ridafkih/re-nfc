@@ -6,16 +6,19 @@ const keys = require('../../keys.json');
 export class NFCScanner extends EventEmitter {
     private input: any = this.getInputDevice();
     private keyboard: any = this.getKeyboardInstance(this.input);
-
+    
     private sequence: string[] = [];
     private history: History = {
         last: undefined,
         count: 0
     }
 
+    public validInput: boolean = false;
+
     constructor() {
         super();
 
+        if (!this.validInput) return;
         this.keyboard.on('keypress', ({ code }: any) => {
             const key: string = keys[code].substr(4);
 
@@ -40,7 +43,9 @@ export class NFCScanner extends EventEmitter {
     }
 
     private getKeyboardInstance(input: any) {
-        return input ? new InputEvent.Keyboard(input) : null;
+        if (!input) return;
+        this.validInput = true;
+        return new InputEvent.Keyboard(input);
     }
 
     private process(): void {
