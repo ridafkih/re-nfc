@@ -50,7 +50,7 @@ export class NFCScanner extends EventEmitter {
             this.history.count = 1;
         }
 
-        if (count == 5) {
+        if (this.history.count == 5) {
             this.history.last = undefined;
             this.history.count = 0;
             clearTimeout(timeout);
