@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { io } = require('socket.io-client');
 const keyboard = require('sendkeys-js');
 
-let socket = io("http://octopi:5001/", {
+let socket = io("http://octopi:80", {
   reconnectionAttempts: 3,
   reconnection: true,
   autoConnect: false
@@ -50,6 +50,7 @@ app.on('ready', () => {
   socket.io.on('reconnect_attempt', () => console.log('reco attempt'));
   socket.io.on('reconnect_failed', handleFailedReconnect);
 
+  socket.on('connect_error', console.log);
   socket.on('connect', handleConnect);
   socket.on('reconnect', handleConnect);
   socket.on('disconnect', e => {
