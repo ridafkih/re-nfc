@@ -17,8 +17,8 @@ export class NFCScanner extends EventEmitter {
         if (this.keyboard) 
             this.registerKeyboardListener();
 
-        usbDetect.on('add', this.attemptKeyboardRegistration);
-        usbDetect.on('remove', this.attemptKeyboardRegistration);
+        usbDetect.on('add', () => this.attemptKeyboardRegistration());
+        usbDetect.on('remove', () => this.attemptKeyboardRegistration());
     }
 
     public attemptKeyboardRegistration() {
