@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 const keys = require('../../keys.json');
 export class NFCScanner extends EventEmitter {
     private input: any = this.getInputDevice();
-    private keyboard: any = new InputEvent.Keyboard(this.input);
+    private keyboard: any = this.getKeyboardInstance(this.input);
 
     private sequence: string[] = [];
     private history: History = {
@@ -37,6 +37,10 @@ export class NFCScanner extends EventEmitter {
         } catch (e) {
             return null;
         }
+    }
+
+    private getKeyboardInstance(input: any) {
+        return input ? new InputEvent.Keyboard(input) : null;
     }
 
     private process(): void {
