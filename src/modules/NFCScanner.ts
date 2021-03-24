@@ -20,6 +20,19 @@ export class NFCScanner extends EventEmitter {
             this.registerKeyboardListener(); 
     }
 
+    public getInputDevice() {
+        try {
+            return new InputEvent('/dev/input/event0')
+        } catch (e) {
+            return null;
+        }
+    }
+
+    public getKeyboardInstance(input: any) {
+        if (!input) return;
+        return new InputEvent.Keyboard(input);
+    }
+
     public attemptKeyboardRegistration() {
         this.input = this.getInputDevice();
         this.keyboard = this.getKeyboardInstance(this.input);
@@ -43,19 +56,6 @@ export class NFCScanner extends EventEmitter {
         });
 
         this.emit('keyboard-registered');
-    }
-
-    private getInputDevice() {
-        try {
-            return new InputEvent('/dev/input/event0')
-        } catch (e) {
-            return null;
-        }
-    }
-
-    private getKeyboardInstance(input: any) {
-        if (!input) return;
-        return new InputEvent.Keyboard(input);
     }
 
     private process(): void {
