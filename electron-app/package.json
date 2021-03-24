@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build-installer": "electron-packager . app --platform win32 --arch x64 --out dist/",
     "e-start": "electron ."
   },
   "eslintConfig": {
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "electron": "^12.0.1",
+    "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.2.0"
   }
 }
