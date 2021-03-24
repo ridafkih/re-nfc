@@ -51,11 +51,18 @@ function App() {
             <button className="App-button App-button-highlight" onClick={reconnectSocket}>Attempt Reconnect</button>
           }
           {status === "check" &&
-            <button className="App-button App-button-highlight">Rewrite Wristband (Coming Soon)</button>
+            <button className="App-button App-button-highlight">Rewrite Wristband</button>
+          }
+          {status === "warning" &&
+            <button className="App-button App-button-highlight">Check Receiver</button>
           }
           </div>
     </div>
   );
+}
+
+function checkReceiver() {
+  ipcRenderer.send("check-receiver");
 }
 
 function reconnectSocket() {

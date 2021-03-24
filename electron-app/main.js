@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { io } = require('socket.io-client');
 const keyboard = require('sendkeys-js');
 
-let socket = io("http://octopi:80", {
+let socket = io("http://raspberrypi/", {
   reconnectionAttempts: 3,
   reconnection: true,
   autoConnect: false
@@ -38,6 +38,10 @@ app.on('ready', () => {
   })
   
   ipcMain.on('close', () => app.exit(0));
+  ipcMain.on('check-receiver', () => {
+    socket.emit('check-receiver');
+  })
+  
   ipcMain.on('attempt-reconnect', () => {
     handleAttemptingConnection();
     socket.open();
@@ -55,6 +59,7 @@ app.on('ready', () => {
   socket.on('disconnect', handleDisconnect);
   
   socket.on('scan', handleScan);
+  socket.on('keyboard-registered', handleConnect);
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {

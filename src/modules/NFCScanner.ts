@@ -16,7 +16,18 @@ export class NFCScanner extends EventEmitter {
     constructor() {
         super();
 
-        if (!this.keyboard) return;
+        if (this.keyboard)
+            this.registerKeyboardListener(); 
+    }
+
+    public attemptKeyboardRegistration() {
+        this.input = this.getInputDevice();
+        this.keyboard = this.getKeyboardInstance(this.input);
+        if (this.keyboard)
+            this.registerKeyboardListener();
+    }
+
+    private registerKeyboardListener() {
         this.keyboard.on('keypress', ({ code }: any) => {
             const key: string = keys[code].substr(4);
 
@@ -30,6 +41,8 @@ export class NFCScanner extends EventEmitter {
                 this.sequence.push(key.toLowerCase());
             
         });
+
+        this.emit('keyboard-registered');
     }
 
     private getInputDevice() {
