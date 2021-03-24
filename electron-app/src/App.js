@@ -54,7 +54,7 @@ function App() {
             <button className="App-button App-button-highlight">Rewrite Wristband</button>
           }
           {status === "warning" &&
-            <button className="App-button App-button-highlight">Check Receiver</button>
+            <button className="App-button App-button-highlight" onClick={checkReceiver}>Check Receiver</button>
           }
           </div>
     </div>
