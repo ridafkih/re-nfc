@@ -18,6 +18,10 @@ function handleDatabase() {
 
 function handleWebSocket() {
     const scanner = new NFCScanner();
+    
+    websocket.io.on('connection', socket => {
+        socket.emit('valid-input', scanner.validInput);
+    })
 
     scanner.on('scan', async (serialNumber: string, isOverThreshold: boolean) => {
         if (isOverThreshold) await database.rewrite(serialNumber);

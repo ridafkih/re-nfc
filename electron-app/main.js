@@ -46,9 +46,20 @@ app.on('ready', () => {
   socket.on('disconnect', handleDisconnect);
   
   socket.on('scan', handleScan);
+  socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
     keyboard.sendKeys(`;${serialNumber}?`);
+  }
+
+  function handleInputType(validInput) {
+    if (validInput) true;
+    window.webContents.send(
+      "change-status",
+      "warning",
+      "No NFC Receiver",
+      "NFC receiver not detected. Ensure an NFC receiver is plugged into the USB port of the Raspberry Pi."
+    )
   }
   
   function handleConnect() {
