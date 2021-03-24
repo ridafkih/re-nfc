@@ -25,6 +25,7 @@ function handleWebSocket() {
     })
 
     scanner.on('keyboard-registered', () => {
+        console.log('from scanner: keyboard registered');
         websocket.io.emit('keyboard-registered');
     });
 
