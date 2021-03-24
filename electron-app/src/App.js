@@ -10,12 +10,12 @@ import './App.css';
 const { ipcRenderer } = window.require("electron");
 
 function App() {
-  const [message, setMessage] = useState("Connecting");
-  const [description, setDescription] = useState("Connecting to NFC Server");
+  const [message, setMessage] = useState("Connecting...");
+  const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while reconnection attempts are made.");
   const [status, setStatus] = useState("info");
 
   useEffect(() => {
-    ipcRenderer.on("change-status", (event, newStatus, newMessage, newDescription) => {
+    ipcRenderer.on("change-status", (_, newStatus, newMessage, newDescription) => {
       setStatus(newStatus)
       setMessage(newMessage);
       setDescription(newDescription);
@@ -46,11 +46,24 @@ function App() {
         <div className="App-notification-description">{description}</div>
       </div>
       <div className="App-buttons">
-          <button className="App-button">Action</button>
-          <button className="App-button App-button-highlight">Highlight Action</button>
-      </div>
+          <button className="App-button" onClick={abort}>Close</button>
+          {status === "danger" &&
+            <button className="App-button App-button-highlight" onClick={reconnectSocket}>Attempt Reconnect</button>
+          }
+          {status === "check" &&
+            <button className="App-button App-button-highlight">Rewrite Wristband (Coming Soon)</button>
+          }
+          </div>
     </div>
   );
+}
+
+function reconnectSocket() {
+  ipcRenderer.send("attempt-reconnect");
+}
+
+function abort() {
+  ipcRenderer.send("close");
 }
 
 export default App;
