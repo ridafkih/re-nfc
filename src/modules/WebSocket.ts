@@ -18,7 +18,7 @@ export class WebSocket extends EventEmitter {
     }
     
     startServer() {
-        this.server.listen(80, () => this.emit("ready"))
+        this.server.listen(5001, () => this.emit("ready"))
     }
 
 }

@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { io } = require('socket.io-client');
 const keyboard = require('sendkeys-js');
 
-let socket = io("http://raspberrypi.localdomain/", {
+let socket = io("http://octopi:5001/", {
   reconnectionAttempts: 3,
   reconnection: true,
   autoConnect: false
@@ -53,7 +53,8 @@ app.on('ready', () => {
   }
 
   function handleInputType(validInput) {
-    if (validInput) true;
+    console.log(`input type >> ${validInput}`)
+    if (validInput) return;
     window.webContents.send(
       "change-status",
       "warning",

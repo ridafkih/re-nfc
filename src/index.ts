@@ -20,6 +20,7 @@ function handleWebSocket() {
     const scanner = new NFCScanner();
     
     websocket.io.on('connection', socket => {
+        console.log("connection made");
         socket.emit('valid-input', scanner.validInput);
     })
 
