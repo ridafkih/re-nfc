@@ -21,6 +21,9 @@ function handleWebSocket() {
     
     websocket.io.on('connection', socket => {
         console.log("connection made");
+
+        socket.on('check-receiver', scanner.attemptKeyboardRegistration);
+
         socket.emit('valid-input', !!scanner.keyboard);
     })
 

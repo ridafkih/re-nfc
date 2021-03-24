@@ -38,7 +38,9 @@ app.on('ready', () => {
   })
   
   ipcMain.on('close', () => app.exit(0));
+
   ipcMain.on('check-receiver', () => {
+    console.log('checking receiver...');
     socket.emit('check-receiver');
   })
   
