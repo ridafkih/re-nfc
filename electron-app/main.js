@@ -27,7 +27,7 @@ app.on('ready', () => {
       contextIsolation: false
     },
     alwaysOnTop: true,
-    icon: path.join(__dirname, "logo.ico")
+    icon: path.join(__dirname, "icon.ico")
   });
 
   window.webContents.once('did-finish-load', () => {

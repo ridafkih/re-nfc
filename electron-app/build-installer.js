@@ -1,8 +1,11 @@
 const { MSICreator } = require('electron-wix-msi');
 const path = require('path');
 
-const appDirectory = path.resolve(__dirname, './dist/ReNFC-win32-x64');
-const outputDirectory = path.resolve(__dirname, './installer');
+const appDirectory = path.join(__dirname, './dist/ReNFC-win32-x64');
+const outputDirectory = path.join(__dirname, './installer');
+
+console.log(appDirectory);
+console.log(outputDirectory);
 
 const msiCreator = new MSICreator({
   appDirectory,
