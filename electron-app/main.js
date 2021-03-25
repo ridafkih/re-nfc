@@ -63,8 +63,7 @@ app.on('ready', () => {
     
   });
   
-  // window.loadFile('./build/index.html');
-  window.loadURL("http://localhost:3000/");
+  window.loadFile('./build/index.html');
 
   socket.io.on('reconnect_failed', handleFailedReconnect);
 
