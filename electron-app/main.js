@@ -48,6 +48,11 @@ app.on('ready', () => {
     handleAttemptingConnection();
     socket.open();
   })
+
+  ipcMain.on('scan-action', (_, rewrite, serialNumber) => {
+    if (rewrite) 
+      return socket.emit('rewrite', serialNumber);
+  });
   
   // window.loadFile('./build/index.html');
   window.loadURL("http://localhost:3000/");
@@ -61,17 +66,13 @@ app.on('ready', () => {
   socket.on('disconnect', handleDisconnect);
   
   socket.on('scan', handleScan);
-  socket.on('scan-action', handleScanAction);
   socket.on('keyboard-registered', handleConnect);
   socket.on('keyboard-registration-failed', handleInputType);
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
+    console.log(`scan: ${serialNumber}`);
     window.webContents.send('get-scan-action', serialNumber);
-  }
-
-  function handleScanAction(rewrite) {
-    console.log('scan action: ' + rewrite);
   }
 
   function handleInputType(validInput) {

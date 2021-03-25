@@ -9,6 +9,8 @@ import './App.css';
 
 const { ipcRenderer } = window.require("electron");
 
+let rewriting = false;
+
 function App() {
   const [message, setMessage] = useState("Connecting...");
   const [description, setDescription] = useState("Attempting to connect to server, make sure the server is on while connection attempts are made.");
@@ -23,11 +25,11 @@ function App() {
       setDescription(newDescription);
 
       if (newStatus !== "check")
-        setRewriteMode(false);
+        exitRewriteMode();
     })
 
     ipcRenderer.on('get-scan-action', (_, serialNumber) => {
-      ipcRenderer.send('scan-action', rewriteMode);
+      ipcRenderer.send('scan-action', rewriting, serialNumber);
     })
   }, []);
 
@@ -39,7 +41,13 @@ function App() {
     ipcRenderer.send('close');
   }
 
+  function exitRewriteMode() {
+    rewriting = false;
+    setRewriteMode(false);
+  }
+
   function toggleRewriteMode() {
+    rewriting = !rewriting;
     setRewriteMode(!rewriteMode);
   }
 
