@@ -47,7 +47,7 @@ You can run `npm -v` and `node -v` to double check that both are installed, if n
 
 Next, just be patient. After running `npm install` you could find yourself waiting for up to ten minutes, and you will be prompted to enter the root password unless you're in sudo su.
 
-After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc.service` and use the PgUp and PgDown keys to navigate.
+After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc` and use the PgUp and PgDown keys to navigate, or use `journalctl -u nfc -f` for a trailing log.
 
 ### Windows Installation
 Once you have the server up and running, it's time to install and launch the complimentary software.
