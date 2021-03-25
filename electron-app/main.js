@@ -1,5 +1,5 @@
 const path = require('path');
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, session } = require('electron');
 const { io } = require('socket.io-client');
 const fetch = require('node-fetch');
 const keyboard = require('sendkeys-js');
@@ -13,6 +13,8 @@ let socket = io("http://raspberrypi/", {
 let lastStatus;
 
 app.on('ready', () => {
+  session.defaultSession.clearCache();
+  
   const window = new BrowserWindow({
     height: 420,
     width: 520,
