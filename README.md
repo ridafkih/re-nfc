@@ -51,7 +51,7 @@ After running this set of commands, the program will have automatically installe
 Once you have the server up and running, it's time to install and launch the complimentary software.
 
 1. Download the installation MSI.
-	* Download [from releases section](https://github.com/ridarf/re-nfc/releases/download/v0.1-alpha/ReNFC.msi)
+	* Download [from releases section](https://github.com/ridarf/re-nfc/releases/download/v0.2-alpha/ReNFC.msi)
 2. Run the installer.
 3. Launch software from start menu. 
 4. Profit.
