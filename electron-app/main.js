@@ -28,8 +28,6 @@ app.on('ready', () => {
   });
 
   window.webContents.once('did-finish-load', () => {
-    console.log('load complete');
-
     window.show();
     socket.open();
   })
@@ -42,7 +40,6 @@ app.on('ready', () => {
   ipcMain.on('close', () => app.exit(0));
 
   ipcMain.on('check-receiver', () => {
-    console.log('checking receiver...');
     socket.emit('check-receiver');
   })
   
@@ -69,8 +66,6 @@ app.on('ready', () => {
   // window.loadFile('./build/index.html');
   window.loadURL("http://localhost:3000/");
 
-  socket.io.on('ping', console.log('pong'));
-  socket.io.on('reconnect_attempt', () => console.log('reco attempt'));
   socket.io.on('reconnect_failed', handleFailedReconnect);
 
   socket.on('connect', handleConnect);
@@ -83,14 +78,11 @@ app.on('ready', () => {
   socket.on('valid-input', handleInputType);
 
   function handleScan(serialNumber) {
-    console.log(`scan: ${serialNumber}`);
     window.webContents.send('get-scan-action', serialNumber);
   }
 
   function handleInputType(validInput) {
-    console.log(`input type >> ${validInput}`);
-    
-    lastStatus = handleInputType;
+    lastStatus = validInput ? handleConnect : handleInputType;
 
     if (validInput) return;
     window.webContents.send(
@@ -102,8 +94,6 @@ app.on('ready', () => {
   }
   
   function handleConnect() {
-    console.log('connection');
-
     lastStatus = handleConnect;
 
     window.webContents.send(
@@ -115,8 +105,6 @@ app.on('ready', () => {
   }
 
   function handleAttemptingConnection() {
-    console.log('manual reconnect');
-
     lastStatus = handleAttemptingConnection;
 
     window.webContents.send(
@@ -128,8 +116,6 @@ app.on('ready', () => {
   }
   
   function handleDisconnect() {
-    console.log('disconnection');
-
     lastStatus = handleDisconnect;
 
     window.webContents.send(
@@ -141,8 +127,6 @@ app.on('ready', () => {
   }
   
   function handleFailedReconnect() {
-    console.log('failed reconnect');
-
     lastStatus = handleFailedReconnect;
 
     window.webContents.send(
