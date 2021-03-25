@@ -35,11 +35,13 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 You can run `npm -v` and `node -v` to double check that both are installed, if not begin troubleshooting your node installation. 
 
 ### Server Installation
-1. Clone the repository.
+1. SSH into the Raspberry Pi
+	* `ssh username@raspberrypi`
+2. Clone the repository.
 	* `git clone https://github.com/ridarf/re-nfc.git`
-2. Navigate into directory.
+3. Navigate into directory.
 	* `cd re-nfc`
-3. Install dependencies, automatically build & install server.
+4. Install dependencies, automatically build & install server.
 	 **Warning:** Following the next command, you will be asked for administrative permissions in order to proceed with the service installation.
 	* `npm install`
 
