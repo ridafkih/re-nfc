@@ -48,11 +48,15 @@ Next, just be patient. After running `npm install` you could find yourself waiti
 After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc.service` and use the PgUp and PgDown keys to navigate.
 
 ### Windows Installation
+Once you have the server up and running, it's time to install and launch the complimentary software.
+
 1. Download the installation MSI.
 	* Download [from releases section](https://github.com/ridarf/re-nfc/releases/download/v0.1-alpha/ReNFC.msi)
 2. Run the installer.
 3. Launch software from start menu. 
 4. Profit.
+
+Once the server is online, and the software is launched, test it out! Enjoy being able to "rewrite" NFC device serial numbers!
 
 ### Server Uninstallation
 1. Navigate into directory. 
