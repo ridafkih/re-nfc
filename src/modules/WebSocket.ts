@@ -6,9 +6,9 @@ import { Server } from "socket.io";
 
 export class WebSocket extends EventEmitter {
     
-    app = express();
-    server: http.Server = createServer(this.app);
-    io: Server = new Server(this.server, {
+    public app: any = express();
+    public server: http.Server = createServer(this.app);
+    public io: Server = new Server(this.server, {
         pingInterval: 2500,
         pingTimeout: 7500
     });
@@ -16,8 +16,12 @@ export class WebSocket extends EventEmitter {
     constructor() {
         super();
     }
+
+    functionName() {
+        this.app.get('')
+    }
     
-    startServer() {
+    public startServer(): void {
         this.server.listen(80, () => this.emit("ready"))
     }
 

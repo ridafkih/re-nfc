@@ -25,20 +25,27 @@ function handleWebSocket() {
 
     scanner.on('keyboard-registered', () => {
         websocket.io.emit('keyboard-registered');
-    });
+    })
 
     scanner.on('keyboard-registration-failed', () => {
         websocket.io.emit('keyboard-registration-failed');
-    });
+    })
 
     scanner.on('scan', async (serialNumber: string) => {
         const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
-        
         const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);
-        websocket.io.emit('scan', newSerialNumber);
-
+        websocket.io.emit('scan', serialNumber);
         console.table({ rewrites, serialNumber, newSerialNumber });
     })
+
+    // --== API Requests ==--
+
+    websocket.app.get('/getWristband/:serialNumber', async (req: any, res: any) => {
+        const { serialNumber } = req.params;
+        const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
+        const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);
+        res.json({ uuid, rewrites, newSerialNumber });
+    });
 
     console.info("IO/Express Server Started");
 }
