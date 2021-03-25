@@ -34,7 +34,7 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 	
 You can run `npm -v` and `node -v` to double check that both are installed, if not begin troubleshooting your node installation. 
 
-### Installation
+### Server Installation
 1. Clone the repository.
 	* `git clone https://github.com/ridarf/re-nfc.git`
 2. Navigate into directory.
@@ -47,7 +47,14 @@ Next, just be patient. After running `npm install` you could find yourself waiti
 
 After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc.service` and use the PgUp and PgDown keys to navigate.
 
-### Uninstallation
+### Windows Installation
+1. Download the installation MSI.
+	* Download [from releases section](https://github.com/ridarf/re-nfc/releases/download/v0.1-alpha/ReNFC.msi)
+2. Run the installer.
+3. Launch software from start menu. 
+4. Profit.
+
+### Server Uninstallation
 1. Navigate into directory. 
 	* `cd re-nfc`
 2. Run uninstallation script.
