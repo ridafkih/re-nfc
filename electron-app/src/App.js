@@ -17,6 +17,7 @@ function App() {
   const [status, setStatus] = useState("info");
 
   const [rewriteMode, setRewriteMode] = useState(false);
+  const [rewritingInProgress, setRewritingInProgress] = useState(false);
 
   useEffect(() => {
     ipcRenderer.on('change-status', (_, newStatus, newMessage, newDescription) => {
@@ -32,6 +33,7 @@ function App() {
       ipcRenderer.send('scan-action', rewriting, serialNumber);
     })
 
+    ipcRenderer.on('rewrite-in-progress', handleRewritingInProgress);
     ipcRenderer.on('exit-rewrite-mode', exitRewriteMode);
   }, []);
 
@@ -43,9 +45,14 @@ function App() {
     ipcRenderer.send('close');
   }
 
+  function handleRewritingInProgress() {
+    setRewritingInProgress(true);
+  }
+
   function exitRewriteMode() {
     rewriting = false;
     setRewriteMode(false);
+    setRewritingInProgress(false);
   }
 
   function toggleRewriteMode() {
@@ -74,7 +81,7 @@ function App() {
           <div className="App-bulb App-bulb-l"></div>
         </div>
         <div className="App-notification-message">
-          {rewriteMode ? "Rewrite Mode" : message}
+          {rewriteMode ? "Rewrite Mode" : (rewritingInProgress ? "Rewriting..." : message)}
         </div>
         <div className="App-notification-description">
           {rewriteMode ? "Rewrite mode is active, scan a near-field communication device to rewrite the serial number." : description}
@@ -85,7 +92,7 @@ function App() {
           {status === "danger" &&
             <button className="App-button App-button-highlight" onClick={reconnectSocket}>Attempt Reconnect</button>
           }
-          {status === "check" &&
+          {status === "check" && !rewritingInProgress &&
             <button className="App-button App-button-highlight" onClick={toggleRewriteMode}>
               {rewriteMode ? "Exit Rewrite Mode" : "Enter Rewrite Mode"}
             </button>

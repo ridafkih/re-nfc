@@ -25,10 +25,11 @@ export class NFCScanner extends EventEmitter {
         this.input = this.getInputDevice();
         this.keyboard = this.getKeyboardInstance(this.input);
 
-        if (this.keyboard)
+        if (this.keyboard) {
             this.registerKeyboardListener();
-        else
+        } else {
             this.emit('keyboard-registration-failed');
+        }
     }
 
     private getInputDevice() {

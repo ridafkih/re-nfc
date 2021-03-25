@@ -52,16 +52,18 @@ app.on('ready', () => {
   })
 
   ipcMain.on('scan-action', (_, rewrite, serialNumber) => {
-    if (!rewrite) {
-      return fetch(`http://raspberrypi/getWristband/${serialNumber}`)
-        .then(res => {
-          const { newSerialNumber } = res.json();
-          keyboard.sendKeys(newSerialNumber);
-        })
-    }
-    
-    fetch(`http://raspberrypi/rewriteWristband/${serialNumber}`)
+    if (rewrite) {
+      window.webContents.send('rewrite-in-progress');
+      return fetch(`http://raspberrypi/rewriteWristband/${serialNumber}`)
       .then(() => window.webContents.send('exit-rewrite-mode'));
+    }
+
+    fetch(`http://raspberrypi/getWristband/${serialNumber}`)
+      .then(res => res.json())
+      .then(({ newSerialNumber }) => {
+        keyboard.sendKeys(`;${newSerialNumber}?`);
+      })
+    
   });
   
   // window.loadFile('./build/index.html');
