@@ -24,7 +24,8 @@ app.on('ready', () => {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: false
     },
-    alwaysOnTop: true
+    alwaysOnTop: true,
+    icon: path.join(__dirname, "logo.ico")
   });
 
   window.webContents.once('did-finish-load', () => {
