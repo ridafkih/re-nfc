@@ -31,6 +31,8 @@ function App() {
     ipcRenderer.on('get-scan-action', (_, serialNumber) => {
       ipcRenderer.send('scan-action', rewriting, serialNumber);
     })
+
+    ipcRenderer.on('exit-rewrite-mode', exitRewriteMode);
   }, []);
 
   function reconnectSocket() {

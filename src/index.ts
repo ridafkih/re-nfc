@@ -47,6 +47,12 @@ function handleWebSocket() {
         res.json({ uuid, rewrites, newSerialNumber });
     });
 
+    websocket.app.get('/rewriteWristband/:serialNumber', async (req: any, res: any) => {
+        const { serialNumber } = req.params;
+        await database.rewrite(serialNumber);
+        res.sendStatus(200);
+    });
+
     console.info("IO/Express Server Started");
 }
 
