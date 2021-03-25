@@ -16,7 +16,7 @@ const msiCreator = new MSICreator({
   name: "ReNFC - NFC Serial Device Rewriter",
   manufacturer: "Rida F'kih",
   version: "1.0.0",
-  appIconPath: path.join(__dirname, "./logo.ico"),
+  appIconPath: path.join(__dirname, "./icon.ico"),
 
   ui: {
     chooseDirectory: true,
