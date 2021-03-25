@@ -1,6 +1,7 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { io } = require('socket.io-client');
+const fetch = require('node-fetch');
 const keyboard = require('sendkeys-js');
 
 let socket = io("http://raspberrypi/", {
@@ -34,7 +35,8 @@ app.on('ready', () => {
   })
 
   window.webContents.on('did-finish-load', () => {
-    if (lastStatus) lastStatus();
+    if (lastStatus) 
+      lastStatus();
   })
   
   ipcMain.on('close', () => app.exit(0));
@@ -52,6 +54,10 @@ app.on('ready', () => {
   ipcMain.on('scan-action', (_, rewrite, serialNumber) => {
     if (rewrite) 
       return socket.emit('rewrite', serialNumber);
+
+    fetch(`http://raspberrypi/getWristband/${serialNumber}`).then(response => {
+      console.log(response);
+    })
   });
   
   // window.loadFile('./build/index.html');
