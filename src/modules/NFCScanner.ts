@@ -1,10 +1,11 @@
-import History from '../interfaces/History';
 import { EventEmitter } from 'events';
 import InputEvent from 'input-event';
-import usbDetect from 'usb-detection';
 
-usbDetect.startMonitoring();
 const keys = require('../../keys.json');
+
+import usbDetect from 'usb-detection';
+usbDetect.startMonitoring();
+
 export class NFCScanner extends EventEmitter {
     private input: any = this.getInputDevice();
     public keyboard: any = this.getKeyboardInstance(this.input);
