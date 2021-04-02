@@ -28,7 +28,7 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
 2. Enable NodeSource repository for 14.x
-	* `curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+	* `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 3. Install NodeJS 14.x from package manager.
 	* `sudo apt install nodejs`
 	
