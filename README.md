@@ -24,6 +24,8 @@ It's also important to know that if you delete or lose the original database on 
 ### Prerequisites
 
 The Raspberry Pi running the operation must have NodeJS 14.x installed. The following commands will get you set up with doing so.
+1. SSH into the Raspberry Pi
+	* `ssh username@raspberrypi`
 1. Update repository list.
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
