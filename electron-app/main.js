@@ -4,7 +4,7 @@ const { io } = require('socket.io-client');
 const fetch = require('node-fetch');
 const keyboard = require('sendkeys-js');
 
-let socket = io("http://raspberrypi/", {
+const socket = io("http://raspberrypi/", {
   reconnectionAttempts: 3,
   reconnection: true,
   autoConnect: false
