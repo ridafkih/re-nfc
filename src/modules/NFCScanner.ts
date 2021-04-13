@@ -48,6 +48,7 @@ export class NFCScanner extends EventEmitter {
 
     private registerKeyboardListener() {
         this.keyboard.on('keypress', ({ code }: any) => {
+            if (!keys[code]) return;
             const key: string = keys[code].substr(4);
 
             if (key == "SLASH") 
