@@ -21,31 +21,32 @@ The serial number on the device is never actually changed, so any raw scans will
 
 It's also important to know that if you delete or lose the original database on the Raspberry Pi, all wristband resets will be lost. You will have to re-reset them if the worst-case occurs.
 
-### Prerequisites
+### Prerequisites & Installation
 
 The Raspberry Pi running the operation must have NodeJS 14.x installed. The following commands will get you set up with doing so.
 1. SSH into the Raspberry Pi
 	* `ssh username@raspberrypi`
-1. Update repository list.
+2. Update repository list.
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
-2. Enable NodeSource repository for 14.x
+3. Enable NodeSource repository for 14.x
 	* `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
-3. Install NodeJS 14.x from package manager.
+4. Install NodeJS 14.x from package manager.
 	* `sudo apt install nodejs`
+5. Ensure Node Package Manager is up-to-date.
+	* `npm i -g npm`
+6. Install libudev
+	* `sudo apt-get install libudev-dev`
 	
 You can run `npm -v` and `node -v` to double check that both are installed, if not begin troubleshooting your node installation. 
 
-### Server Installation
-1. SSH into the Raspberry Pi
-	* `ssh username@raspberrypi`
-2. Clone the repository.
+7. Clone the repository into a repository the account has access to.
 	* `git clone https://github.com/ridarf/re-nfc.git`
-3. Navigate into directory.
+8. Navigate into directory.
 	* `cd re-nfc`
-4. Install dependencies, automatically build & install server.
+9. Install dependencies, automatically build & install server.
 	 **Warning:** Following the next command, you will be asked for administrative permissions in order to proceed with the service installation.
-	* `npm install`
+	* `sudo npm install`
 
 Next, just be patient. After running `npm install` you could find yourself waiting for up to ten minutes, and you will be prompted to enter the root password unless you're in sudo su.
 
