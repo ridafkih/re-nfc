@@ -3,7 +3,7 @@
 > Rotate near-field communication devices serial numbers in order to re-use them for single-use applications. 
 ___
 
-![video software working](https://i.imgur.com/cq1ZuDr.gif)
+<img src="https://i.imgur.com/cq1ZuDr.gif" alt="video demonstration" width="600" />
 
 This is meant to be used on a Raspberry Pi 3 or 4 with an NFC reader which inputs NFC device serial numbers in hexadecimal format preceded by a `;` and succeeded by a `?`.
 
