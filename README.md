@@ -3,6 +3,8 @@
 > Rotate near-field communication devices serial numbers in order to re-use them for single-use applications. 
 ___
 
+![video software working](https://i.imgur.com/cq1ZuDr.gif)
+
 This is meant to be used on a Raspberry Pi 3 or 4 with an NFC reader which inputs NFC device serial numbers in hexadecimal format preceded by a `;` and succeeded by a `?`.
 
 ReNFC uses a simple local SQLite3 database to store serial number rotations, and a WebSocket server to communicate wirelessly over a LAN. The Raspberry Pi calculates the new serial number, and sends it to the PC which types the serial number in the correct format.
