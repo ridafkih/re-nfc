@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm run build"
+    "preinstall": "npm run build",
     "install": "sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
     "uninstall": "sudo systemctl disable --now nfc.service && sudo node scripts/remove.js",
     "build": "tsc -p .",
