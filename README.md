@@ -35,8 +35,8 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 	* `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 4. Install NodeJS 14.x from package manager.
 	* `sudo apt install nodejs`
-5. Ensure Node Package Manager is up-to-date.
-	* `npm i -g npm`
+5. Ensure NPM version 6 is installed, as SQLite3 is incompatible with other versions.
+	* `npm i -g npm@6`
 6. Install libudev
 	* `sudo apt-get install libudev-dev`
 	
