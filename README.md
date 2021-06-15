@@ -48,7 +48,7 @@ You can run `npm -v` and `node -v` to double check that both are installed, if n
 	* `cd re-nfc`
 9. Install dependencies, automatically build & install server.
 	 **Warning:** Following the next command, you will be asked for administrative permissions in order to proceed with the service installation.
-	* `sudo npm install`
+	* `sudo npm install --unsafe-perm`
 
 Next, just be patient. After running `npm install` you could find yourself waiting for up to ten minutes, and you will be prompted to enter the root password unless you're in sudo su.
 
