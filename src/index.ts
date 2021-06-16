@@ -3,12 +3,8 @@ import { Database } from './modules/Database';
 import { NFCScanner } from './modules/NFCScanner';
 import { WebSocket } from './modules/WebSocket';
 
-const database = new Database();
+const database = new Database().initialize();
 const websocket = new WebSocket();
-
-database.on('ready', handleDatabase);
-
-database.connect().catch(console.error);
 
 function handleDatabase() {
     websocket.startServer();
@@ -32,7 +28,7 @@ function handleWebSocket() {
     })
 
     scanner.on('scan', async (serialNumber: string) => {
-        const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
+        const { uuid, rewrites }: Wristband = database.getWristband(serialNumber);
         const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);
         websocket.io.emit('scan', serialNumber);
         console.table({ rewrites, serialNumber, newSerialNumber });
@@ -42,14 +38,14 @@ function handleWebSocket() {
 
     websocket.app.get('/getWristband/:serialNumber', async (req: any, res: any) => {
         const { serialNumber } = req.params;
-        const { uuid, rewrites }: Wristband = await database.getWristband(serialNumber);
+        const { uuid, rewrites }: Wristband = database.getWristband(serialNumber);
         const newSerialNumber: string = shiftSerialNumber(uuid, rewrites);
         res.json({ uuid, rewrites, newSerialNumber });
     });
 
-    websocket.app.get('/rewriteWristband/:serialNumber', async (req: any, res: any) => {
+    websocket.app.get('/rewriteWristband/:serialNumber', (req: any, res: any) => {
         const { serialNumber } = req.params;
-        await database.rewrite(serialNumber);
+        database.rewrite(serialNumber);
         res.sendStatus(200);
     });
 
