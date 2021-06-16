@@ -32,12 +32,12 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
 3. Enable NodeSource repository for 14.x
-	* `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
-4. Install NodeJS 14.x from package manager.
+	* `curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
+4. Install NodeJS 16.x from package manager.
 	* `sudo apt install nodejs`
-5. Ensure NPM version 6 is installed, as SQLite3 is incompatible with other versions.
-	* `npm i -g npm@6`
-6. Install libudev
+5. Ensure NPM is up to date, as SQLite3 is incompatible with older versions.
+	* `npm i -g npm`
+6. Install libudev for the `usb-detection` library.
 	* `sudo apt-get install libudev-dev`
 	
 You can run `npm -v` and `node -v` to double check that both are installed, if not begin troubleshooting your node installation. 
@@ -48,7 +48,7 @@ You can run `npm -v` and `node -v` to double check that both are installed, if n
 	* `cd re-nfc`
 9. Install dependencies, automatically build & install server.
 	 **Warning:** Following the next command, you will be asked for administrative permissions in order to proceed with the service installation.
-	* `sudo npm install --unsafe-perm`
+	* `sudo npm install`
 
 Next, just be patient. After running `npm install` you could find yourself waiting for up to ten minutes, and you will be prompted to enter the root password unless you're in sudo su.
 
