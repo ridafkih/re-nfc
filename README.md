@@ -31,9 +31,9 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 2. Update repository list.
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
-3. Enable NodeSource repository for 14.x
+3. Enable NodeSource repository for 14.15.0
 	* `curl -sL https://deb.nodesource.com/setup_14.15.0 | sudo -E bash -`
-4. Install NodeJS 16.x from package manager.
+4. Install NodeJS 14.15.0 from package manager.
 	* `sudo apt install nodejs`
 5. Ensure NPM is up to date, as SQLite3 is incompatible with older versions.
 	* `npm i -g npm`
