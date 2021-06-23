@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 const service = `[Unit]
 Description=ReNFC Serial Remapping
 After=network.target
@@ -11,4 +13,4 @@ Environment=PORT=80
 [Install]
 WantedBy=multi-user.target`
 
-require('fs').writeFileSync('/etc/systemd/system/nfc.service', service, 'utf8');
+fs.writeFileSync('/etc/systemd/system/nfc.service', service, 'utf8');
