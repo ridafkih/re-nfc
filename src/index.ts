@@ -3,16 +3,16 @@ import { Database } from './modules/Database';
 import { NFCScanner } from './modules/NFCScanner';
 import { WebSocket } from './modules/WebSocket';
 
-const database = new Database().initialize();
+new Database().initialize().then(handleDatabase);
 const websocket = new WebSocket();
 
-function handleDatabase() {
+function handleDatabase(database: Database) {
     websocket.startServer();
-    websocket.on('ready', handleWebSocket);
+    websocket.on('ready', () => handleWebSocket(database));
     console.info("SQLite3 Database Hooked");
 }
 
-function handleWebSocket() {
+function handleWebSocket(database: Database) {
     const scanner = new NFCScanner();
     
     websocket.io.on('connection', socket => {

@@ -16,6 +16,7 @@
     "better-sqlite3": "^7.4.1",
     "express": "^4.17.1",
     "input-event": "^1.2.6",
+    "lowdb": "^2.1.0",
     "socket.io": "^4.0.0",
     "usb-detection": "^4.10.0"
   },
