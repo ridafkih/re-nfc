@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import InputEvent from 'input-event';
 
-const keys = require('../../keys.json');
+import keys from '../models/keys';
 
 import usbDetect from 'usb-detection';
 usbDetect.startMonitoring();
