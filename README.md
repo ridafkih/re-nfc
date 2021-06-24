@@ -31,9 +31,9 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 2. Update repository list.
 	* `sudo apt-get update`
 	* `sudo apt-get upgrade`
-3. Enable NodeSource repository for 14.x
-	* `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
-4. Install NodeJS 14.x from package manager.
+3. Enable NodeSource repository for 16.x
+	* `curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
+4. Install NodeJS 16.x from package manager.
 	* `sudo apt install nodejs`
 5. Ensure NPM is up to date, as SQLite3 is incompatible with older versions.
 	* `npm i -g npm`
@@ -52,7 +52,16 @@ You can run `npm -v` and `node -v` to double check that both are installed, if n
 
 Next, just be patient. After running `npm install` you could find yourself waiting for up to ten minutes, and you will be prompted to enter the root password unless you're in sudo su.
 
-After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc` and use the PgUp and PgDown keys to navigate, or use `journalctl -u nfc -f` for a trailing log.
+After running this set of commands, the program will have automatically installed. It will automatically run on boot. If you wish to see the logs output by the service, simply use the command `journalctl -u nfc` and use the PgUp and PgDown keys to navigate, or use `npm run logs` for a trailing log.
+
+### Server Management & Usage
+
+1. If you would like to restart the service.
+	* `npm run restart`
+2. If you would like to stop the service.
+	* `npm run stop`
+3. If you would like to start the service. However, this service will automatically start after installation, as well as automatically on boot if you've already run `npm install` at least once.
+	* `npm run start`
 
 ### Windows Installation
 Once you have the server up and running, it's time to install and launch the complimentary software.
