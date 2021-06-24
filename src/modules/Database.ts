@@ -24,7 +24,7 @@ export class Database extends EventEmitter {
 
         if (!entry)
             data?.wristbands.push(entry);
-        else entry.rewrites + (reverse ? -1 : 1);
+        else entry.rewrites += (reverse ? -1 : 1);
 
         this.raw.write();
     }
