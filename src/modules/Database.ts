@@ -32,8 +32,9 @@ export class Database extends EventEmitter {
     getWristband(uuid: string): Wristband {
         const { data } = this.raw;
 
-        const index: number = data?.wristbands.findIndex(wristband => wristband.uuid === uuid) || -1;
-        const entry: Wristband = data?.wristbands[index] || { uuid, rewrites: 0 };
+        const index: number | undefined = data?.wristbands.findIndex(wristband => wristband.uuid === uuid);
+        const access: number = typeof index === 'undefined' ? -1 : index;
+        const entry: Wristband = data?.wristbands[access] || { uuid, rewrites: 0 };
 
         if (index === -1) {
             data?.wristbands.push(entry);
