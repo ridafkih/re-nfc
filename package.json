@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "install": "sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
+    "install": "sudo node scripts/service.js && npm start",
+    "start": "sudo systemctl enable --now nfc.service",
+    "restart": "sudo systemctl stop nfc && npm start",
     "uninstall": "sudo systemctl disable --now nfc.service && sudo node scripts/remove.js",
     "run": "sudo node --loader ts-node/esm --experimental-specifier-resolution=node ./src/index.ts"
   },
