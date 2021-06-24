@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "preinstall": "npm run build",
     "install": "sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
