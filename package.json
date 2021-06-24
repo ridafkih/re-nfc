@@ -8,7 +8,7 @@
     "preinstall": "npm run build",
     "install": "sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
     "uninstall": "sudo systemctl disable --now nfc.service && sudo node scripts/remove.js",
-    "build": "tsc -p .",
+    "build": "tsc .",
     "run": "sudo node build/index.js --verbose=true"
   },
   "author": "",
