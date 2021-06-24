@@ -8,7 +8,7 @@ type DBSchema = {
     wristbands: Wristband[];
 }
 
-const DATABASE_PATH = path.join("../", "database.json");
+const DATABASE_PATH = path.join("./", "database.json");
 const adapter = new JSONFile<DBSchema>(DATABASE_PATH);
 
 export class Database extends EventEmitter {
@@ -35,8 +35,8 @@ export class Database extends EventEmitter {
         const index: number = data?.wristbands.findIndex(wristband => wristband.uuid === uuid) || -1;
         const entry: Wristband = data?.wristbands[index] || { uuid, rewrites: 0 };
 
-        if (entry) {
-            data?.wristbands.push(entry)
+        if (index === -1) {
+            data?.wristbands.push(entry);
             this.raw.write();
         }
 
