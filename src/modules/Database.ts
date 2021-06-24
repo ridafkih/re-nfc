@@ -2,7 +2,7 @@ import { Wristband } from '../interfaces/Wristband';
 import { EventEmitter } from 'events';
 import path from 'path';
 
-import { Low, JSONFile  } from 'lowdb';
+import { Low, JSONFile } from 'lowdb';
 
 type DBSchema = {
     wristbands: Wristband[];
