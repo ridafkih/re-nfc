@@ -7,7 +7,7 @@ ___
 
 This is meant to be used on a Raspberry Pi 3 or 4 with an NFC reader which inputs NFC device serial numbers in hexadecimal format preceded by a `;` and succeeded by a `?`.
 
-ReNFC uses a simple local SQLite3 database to store serial number rotations, and a WebSocket server to communicate wirelessly over a LAN. The Raspberry Pi calculates the new serial number, and sends it to the PC which types the serial number in the correct format.
+ReNFC uses a simple local database to store serial number rotations, and a WebSocket server to communicate wirelessly over a LAN. The Raspberry Pi calculates the new serial number, and sends it to the PC which types the serial number in the correct format.
 
 Not only does ReNFC grant the user the ability to "rewrite" non-rewritable serial numbers up to 16 times, but it also grants wireless capabilities between the NFC reader and the primary PC it is meant to connect to. 
 
@@ -35,7 +35,7 @@ The Raspberry Pi running the operation must have NodeJS 14.x installed. The foll
 	* `curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
 4. Install NodeJS 16.x from package manager.
 	* `sudo apt install nodejs`
-5. Ensure NPM is up to date, as SQLite3 is incompatible with older versions.
+5. Ensure NPM is up to date.
 	* `npm i -g npm`
 6. Install libudev for the `usb-detection` library.
 	* `sudo apt-get install libudev-dev`
