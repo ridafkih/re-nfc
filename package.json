@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "preinstall": "npm run build",
     "install": "sudo node scripts/service.js && sudo systemctl enable --now nfc.service",
@@ -18,9 +17,10 @@
     "input-event": "^1.2.6",
     "lowdb": "^2.1.0",
     "socket.io": "^4.0.0",
-    "usb-detection": "^4.10.0",
+    "ts-node": "^10.0.0",
     "tsc": "^2.0.3",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "usb-detection": "^4.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
