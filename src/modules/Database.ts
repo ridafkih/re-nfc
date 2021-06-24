@@ -8,7 +8,7 @@ type DBSchema = {
     wristbands: Wristband[];
 }
 
-const DATABASE_PATH = path.join(__dirname, "../", "database.json");
+const DATABASE_PATH = path.join("../", "database.json");
 const adapter = new JSONFile<DBSchema>(DATABASE_PATH);
 
 export class Database extends EventEmitter {
