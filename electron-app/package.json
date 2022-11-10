@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^13.6.6",
+    "electron": "^18.3.7",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.2.0",
     "electron-wix-msi": "^3.1.0"
