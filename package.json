@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "input-event": "^1.2.6",
     "lowdb": "^2.1.0",
     "socket.io": "^4.0.0",
